@@ -1,2 +1,2 @@
-# 여행 기록일지
+# Trip or Travel
 > 최소연
