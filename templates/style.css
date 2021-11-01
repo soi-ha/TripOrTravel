@@ -17,6 +17,10 @@
 
 body {
   font-family: "Gowun Batang", serif;
+  background-image: url("../static/wave_back.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
 }
 
 /* Header */
@@ -25,34 +29,11 @@ body {
   flex-direction: column;
   align-content: center;
   padding: 80px;
-  background-image: linear-gradient(to top, #209cff 0%, #68e0cf 100%);
 }
 
 .header .post-button {
   width: 70px;
   height: 30px;
-}
-
-.custom-shape-divider-bottom {
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  transform: rotate(180deg);
-}
-
-.custom-shape-divider-bottom svg {
-  position: relative;
-  display: block;
-  width: calc(141% + 1.3px);
-  height: 103px;
-  transform: rotateY(180deg);
-  background-image: linear-gradient(to top, #209cff 0%, #68e0cf 100%);
-}
-
-.custom-shape-divider-bottom .shape-fill {
-  fill: #ffffff;
 }
 
 /* Google Map */
