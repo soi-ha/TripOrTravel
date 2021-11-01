@@ -1,12 +1,20 @@
 :root {
   /* color */
+  --skyblue-color: #87d7ff;
+  --box-color: #f0fbff;
+  --button-color: #f9f871;
+  --green-color: #1c7ea3;
 
   /* font size */
-  --font-title: 25px;
-  --font-large: 18px;
+  --font-title: 80px;
+  --font-subTitle: 30px;
+  --font-large: 20px;
   --font-medium: 14px;
   --font-small: 12px;
   --font-micro: 10px;
+
+  /* size */
+  --padding: 15px;
 }
 
 * {
@@ -20,7 +28,15 @@ body {
   background-image: url("../static/wave_back.svg");
   background-repeat: no-repeat;
   background-size: cover;
+  /* background-attachment: fixed; */
   height: 100%;
+}
+
+button, /* 브라우저 자체에서 꾸며주는 버튼의 속성을 제거함 */
+button:focus {
+  border: none;
+  cursor: pointer;
+  outline: none;
 }
 
 /* Header */
@@ -31,9 +47,33 @@ body {
   padding: 80px;
 }
 
+.header .nav {
+  margin: auto; /* header 가운데 정렬로 만듦 */
+}
+
 .header .post-button {
-  width: 70px;
-  height: 30px;
+  padding: 10px 20px;
+  margin: auto; /* header 가운데 정렬로 만듦 */
+  margin-top: 20px;
+  font-size: var(--font-large);
+  background-color: var(--box-color);
+  border-radius: 10%;
+}
+
+.header .post-button:hover {
+  background-color: var(--button-color);
+}
+
+.header .nav .nav-title {
+  display: block;
+  font-size: var(--font-title);
+  font-weight: bold;
+}
+
+.header .nav .nav-subheading {
+  display: block;
+  font-size: var(--font-subTitle);
+  text-align: center;
 }
 
 /* Google Map */
