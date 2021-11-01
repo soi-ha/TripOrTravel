@@ -18,13 +18,13 @@
 }
 
 * {
+  font-family: "Gowun Batang", serif;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
 body {
-  font-family: "Gowun Batang", serif;
   background-image: url("../static/wave_back.svg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -58,6 +58,7 @@ button:focus {
   font-size: var(--font-large);
   background-color: var(--box-color);
   border-radius: 10%;
+  font-weight: bold;
 }
 
 .header .post-button:hover {
