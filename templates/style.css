@@ -32,7 +32,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   /* background-attachment: fixed; */
-  height: 100%;
 }
 
 button, /* 브라우저 자체에서 꾸며주는 버튼의 속성을 제거함 */
