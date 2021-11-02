@@ -56,7 +56,7 @@ button:focus {
 
 .header .post-button {
   padding: 10px 20px;
-  margin: auto; /* header 가운데 정렬로 만듦 */
+  margin: auto; /*button 가로와 세로를 가운데 정렬해줌 (적용 안할 시에 button이 가로로 길게 늘어짐)*/
   margin-top: 20px;
   font-size: var(--font-large);
   background-color: var(--box-color);
@@ -69,13 +69,12 @@ button:focus {
 }
 
 .header .nav .nav-title {
-  display: block; /*다른 span요소와 줄 바꿈을 해주기 위해 블럭요소로 변경*/
   font-size: var(--font-title);
   font-weight: bold;
 }
 
 .header .nav .nav-subheading {
-  display: block;
+  display: block; /*text-align사용을 위해서 block으로 변경*/
   font-size: var(--font-subTitle);
   text-align: center; /* 글을 화면 중앙에 배치 */
 }
