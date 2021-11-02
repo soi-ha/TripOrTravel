@@ -19,6 +19,9 @@
 
 * {
   font-family: "Gowun Batang", serif;
+  /* body에 폰트 작성 시, 버튼부분 폰트가 먹히지 않음
+  이유: button에는 기본 값(폰트)이 있음. CSS 적용 명시도(우선순위)가 부모인 body 태그 CSS 보다 button 기본 값 CSS가 더 높기 때문에 브라우저의 버튼 style이 적용됨.
+  전역 선택자(*)는 모든 태그에 직접 해당 값을 넣는것과 같은 우선순위를 갖는다고 봄. 그래서 브라우저의 스타일보다 우선적으로 적용됨. */
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -66,7 +69,7 @@ button:focus {
 }
 
 .header .nav .nav-title {
-  display: block;
+  display: block; /*다른 span요소와 줄 바꿈을 해주기 위해 블럭요소로 변경*/
   font-size: var(--font-title);
   font-weight: bold;
 }
@@ -74,7 +77,7 @@ button:focus {
 .header .nav .nav-subheading {
   display: block;
   font-size: var(--font-subTitle);
-  text-align: center;
+  text-align: center; /* 글을 화면 중앙에 배치 */
 }
 
 /* Google Map */
