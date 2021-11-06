@@ -30,13 +30,34 @@
   <div class="content">
     <!-- Posting box -->
     <div id="posting-box" class="post-box" style="display: none">
-      <input class="card-writer"></input>
-      <input class="card-title"></input>
-      <input class="card-trip-date"></input>
-      <input class="card-trip-place"></input>
-      <div class="card-upload-button"></div>
-      <textarea class="card-trip-content"></textarea>
-      <button class="save-button"></button>
+      <div class="post-css">
+        <div class="post">
+          <label for="post-writer">작성자</label>
+          <input id="post-writer" class="card-writer" type="text" maxlength="10" size="20" required>
+        </div>
+        <div class="post">
+          <label for="post-title">제목</label>
+          <input id="post-title" class="card-title" type="text" maxlength="10" size="20" required>
+        </div>
+        <div class="post">
+          <label for="card-trip-date">여행 날짜</label>
+          <input id="post-trip-date" class="card-trip-date" type="date">
+        </div>
+        <div class="post">
+          <label for="card-trip-place">여행장소</label>
+          <input id="post-trip-place" class="card-trip-place">
+        </div>
+        <div class="post">
+          <label class="card-upload-button">사진 업로드</label>
+          <input id="post-img" type="file" accept="image/*">
+        </div>
+        </label>
+        <div class="post">
+          <label for="card-trip-content">내용</label>
+          <textarea id="post-trip-content" class="card-trip-content"></textarea>
+        </div>
+        <button class="save-button"></button>
+      </div>
     </div>
     <!-- Google Map -->
     <div id="map"></div>

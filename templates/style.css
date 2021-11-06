@@ -78,6 +78,16 @@ button:focus {
   text-align: center; /* 글을 화면 중앙에 배치 */
 }
 
+/* Post box */
+.post-box .post-css {
+  background-color: var(--box-color);
+  display: flex;
+  flex-direction: column;
+  height: 700px;
+  width: 700px;
+  margin: auto;
+}
+
 /* Google Map */
 #map {
   width: 500px;
