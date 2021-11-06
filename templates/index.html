@@ -5,7 +5,8 @@
   <title>Trip or Travel</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   <link rel="stylesheet" type="text/css" href="style.css?ver=1" />
-  <script src="main.js"></script>
+  <script defer src="main.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- Google Map  -->
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlc1cmKgefcHGoKjAL5FUUjXGrAlRvwN0&callback=initMap&v=weekly"
@@ -23,12 +24,12 @@
       <span class="nav-title">Trip or Travel</span>
       <span class="nav-subheading">여행을 가거나! 여행을 떠나거나!</span>
     </div>
-    <button class="post-button">Trip</button>
+    <button onclick="openClose()" class="post-button">Trip</button>
   </div>
   <!-- Content -->
   <div class="content">
     <!-- Posting box -->
-    <div class="post-box">
+    <div id="posting-box" class="post-box" style="display: none">
       <input class="card-writer"></input>
       <input class="card-title"></input>
       <input class="card-trip-date"></input>
