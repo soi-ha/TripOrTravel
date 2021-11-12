@@ -37,6 +37,5 @@ def read_articles():
     # articles라는 키 값으로 article 정보 보내주기
     return jsonify({'result': 'success', 'articles': result})
 
-
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
