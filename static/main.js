@@ -1,9 +1,11 @@
 $(document).ready(function () {
     $("#card-bundle").html("");
     showArticles();
+    getImage();
 });
 
 let map;
+let img_path;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
@@ -23,11 +25,55 @@ function openClose() {
     }
 }
 
+function getImage() {
+    $.ajax({
+        type: 'GET',
+        url: '/trip',
+        success: function (res) {
+            let images = res['images']
+            for (let i = 0; i < images.length; i++) {
+                let image = images[i]
+                console.log(image)
+                let temp = `<img src="${image}" alt="image${i}">`
+                $('.card-img').append(temp)
+            }
+        }
+    })
+}
+
+function uploadImage() {
+    let images = $('#post-img')[0].files[0]
+    if (images === undefined) {
+        alert('이미지를 선택해주세요.')
+        return
+    }
+
+    let formData = new FormData();
+    formData.append("images", images)
+
+    $.ajax({
+        type: "POST",
+        url: "/image",
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (res) {
+            if (res['result'] === 'success') {
+                img_path = res['img_path']
+                alert('사진 업로드 성공!')
+                console.log(img_path);
+            } else {
+                alert('사진 업로드 실패!')
+                console.error(res['error'])
+            }
+        }
+    })
+}
+
 function postArticle() {
     const writer = $("#post-writer").val();
     const date = $("#post-trip-date").val();
     const place = $("#post-trip-place").val();
-    const img = $("#post-img").val();
     const content = $("#post-trip-content").val();
 
     // POST 방식으로 카드 생성 요청하기
@@ -38,7 +84,7 @@ function postArticle() {
             writer_give: writer,
             date_give: date,
             place_give: place,
-            img_give: img,
+            img_give: img_path,
             content_give: content
         }, // 데이터를 주는 방법
         success: function (response) { // 성공하면

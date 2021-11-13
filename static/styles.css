@@ -28,7 +28,7 @@
 }
 
 body {
-  background-image: url("../static/wave_back.svg");
+  background-image: url("wave_back.svg");
   background-repeat: no-repeat;
   background-size: cover;
   /* background-attachment: fixed; */

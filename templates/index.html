@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <title>Trip or Travel</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" type="text/css" href="./styles.css"/>
-    <script src="main.js"></script>
+    <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- static -->
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"/>
+    <script src="/static/main.js"></script>
     <!-- Google Map  -->
     <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlc1cmKgefcHGoKjAL5FUUjXGrAlRvwN0&callback=initMap&v=weekly"
@@ -45,7 +47,7 @@
             </div>
             <div class="post">
                 <label class="card-upload-button">사진 업로드</label>
-                <input id="post-img" type="file" accept="image/*">
+                <input id="post-img" type="file" onchange="uploadImage()" accept="image/*">
             </div>
             <div class="post">
                 <label for="post-trip-content">내용</label>

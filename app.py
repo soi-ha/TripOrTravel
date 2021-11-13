@@ -1,5 +1,8 @@
 from flask import Flask, render_template, jsonify, request
-from pymongo import MongoClient  # pymongo를 임포트 하기(패키지 인스톨 먼저 해야겠죠?)
+from pymongo import MongoClient  # pymongo를 임포트 하기
+from datetime import datetime
+from os import listdir
+from os.path import isfile, join
 
 app = Flask(__name__)
 
@@ -10,6 +13,30 @@ db = client.dbsparta  # 'dbsparta'라는 이름의 db를 만듭니다.
 @app.route('/')
 def home():
     return render_template('index.html')
+
+
+@app.route('/trip', methods=['GET'])
+def get_image():
+    # get all files from the static directory
+    static_path = './static'
+    files = [f'/static/{f}' for f in listdir(static_path) if isfile(join(static_path, f))]
+    result = list(db.trip.find({}, {'_id': 0}))
+    return jsonify({'images': files,'articles': result})
+
+
+@app.route('/image', methods=['POST'])
+def post_image():
+    # try:
+        image = request.files['images']
+        extension = image.filename.split('.')[-1]  # extension
+        timestamp = int(datetime.now().timestamp())  # utc timestamp
+        image_name = f'/static/{timestamp}.{extension}'  # save path
+        image.save(f'.{image_name}')
+
+        # db.trip.update_one({'img': image_name})
+        return jsonify({'result': 'success','img_path': image_name})
+    # except Exception as e:
+    #     return jsonify({'result': 'fail', 'error': e})
 
 
 @app.route('/trip', methods=['POST'])
@@ -30,12 +57,13 @@ def post_article():
     return jsonify({'result': 'success'})
 
 
-@app.route('/memo', methods=['GET'])
+@app.route('/trip', methods=['GET'])
 def read_articles():
     # mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기 (Read)
     result = list(db.trip.find({}, {'_id': 0}))
     # articles라는 키 값으로 article 정보 보내주기
     return jsonify({'result': 'success', 'articles': result})
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
