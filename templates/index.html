@@ -15,6 +15,8 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlc1cmKgefcHGoKjAL5FUUjXGrAlRvwN0&callback=initMap&v=weekly"
             async
     ></script>
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,6 +47,11 @@
             <div class="post">
                 <label for="post-trip-place">여행장소</label>
                 <input id="post-trip-place" type="text">
+                <button id="geo-submit" type="button">검색</button>
+            </div>
+            <div class="post">
+                <label for="post-trip-location">위도 경도</label>
+                <input id="post-trip-location" type="text">
             </div>
             <div class="post">
                 <label class="card-upload-button">사진 업로드</label>
@@ -58,9 +65,6 @@
         </div>
     </div>
     <!-- Google Map -->
-    <label for="geo-address">위치 검색</label>
-    <input id="geo-address" type="text">
-    <button id="geo-submit" type="button">검색</button>
     <div id="map"></div>
     <!-- Card box -->
     <div id="card-bundle" class="cards">

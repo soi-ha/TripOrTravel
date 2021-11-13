@@ -4,6 +4,9 @@ $(document).ready(function () {
     getImage();
 });
 
+let tot = {
+    location: undefined
+}
 let map;
 let img_path;
 
@@ -13,61 +16,107 @@ function initMap() {
         zoom: 8,
     });
 
+    // 여기서 부터 수정- 마커 찍기!!!!!!!
+    for (let i = 0; i < tot.length; i++) {
+        let marker = new google.maps.Marker({
+            map: map,
+            label: location[i].place,
+            position: new google.maps.LatLng(tot.location.lat, tot.location.lng),
+        });
 
-    let geocoder = new google.maps.Geocoder();
-
-    // submit 버튼 클릭 이벤트 실행
-    document.getElementById('geo-submit').addEventListener('click', function () {
-        console.log('submit 버튼 클릭 이벤트 실행');
-
-        // 여기서 실행
-        geocodeAddress(geocoder, map);
-    });
-        /**
-         * geocodeAddress
-         *
-         * 입력한 주소로 맵의 좌표를 바꾼다.
-         */
-        function geocodeAddress(geocoder, resultMap) {
-            console.log('geocodeAddress 함수 실행');
-
-            // 주소 설정
-            let address = document.getElementById('geo-address').value;
-
-            /**
-             * 입력받은 주소로 좌표에 맵 마커를 찍는다.
-             * 1번째 파라미터 : 주소 등 여러가지.
-             *      ㄴ 참고 : https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests
-             *
-             * 2번째 파라미터의 함수
-             *      ㄴ result : 결과값
-             *      ㄴ status : 상태. OK가 나오면 정상.
-             */
-            geocoder.geocode({'geo-address': address}, function (result, status) {
-                console.log(result);
-                console.log(status);
-
-                if (status === 'OK') {
-                    // 맵의 중심 좌표를 설정한다.
-                    resultMap.setCenter(result[0].geometry.location);
-                    // 맵의 확대 정도를 설정한다.
-                    resultMap.setZoom(18);
-                    // 맵 마커
-                    let marker = new google.maps.Marker({
-                        map: resultMap,
-                        position: result[0].geometry.location
-                    });
-
-                    // 위도
-                    console.log('위도(latitude) : ' + marker.position.lat());
-                    // 경도
-                    console.log('경도(longitude) : ' + marker.position.lng());
-                } else {
-                    alert('지오코드가 다음의 이유로 성공하지 못했습니다 : ' + status);
-                }
-            });
-        }
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                infowindow.setContent('#post-trip-place');
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
     }
+
+let geocoder = new google.maps.Geocoder();
+
+// submit 버튼 클릭 이벤트 실행
+document.getElementById('geo-submit').addEventListener('click', function () {
+
+    // 여기서 실행
+    geocodeAddress(geocoder, map);
+});
+
+/**
+ * geocodeAddress
+ *
+ * 입력한 주소로 맵의 좌표를 바꾼다.
+ */
+function geocodeAddress(geocoder, resultMap) {
+
+    // 주소 설정
+    let address = document.getElementById("post-trip-place").value;
+
+    /**
+     * 입력받은 주소로 좌표에 맵 마커를 찍는다.
+     * 1번째 파라미터 : 주소 등 여러가지.
+     *      ㄴ 참고 : https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests
+     *
+     * 2번째 파라미터의 함수
+     *      ㄴ result : 결과값
+     *      ㄴ status : 상태. OK가 나오면 정상.
+     */
+    geocoder.geocode({'address': address}, function (result, status) {
+
+        if (status === 'OK') {
+            // 맵의 중심 좌표를 설정한다.
+            resultMap.setCenter(result[0].geometry.location);
+            // 맵의 확대 정도를 설정한다.
+            resultMap.setZoom(18);
+            // 맵 마커
+            let marker = new google.maps.Marker({
+                map: resultMap,
+                position: result[0].geometry.location
+            });
+
+            tot.location = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()}
+
+            $('#post-trip-location').val(tot.location.lat + '/' + tot.location.lng);
+            // // 위도
+            // latitude = marker.position.lat();
+            // // 경도
+            // longitude = marker.position.lng();
+        } else {
+            alert('지오코드가 다음의 이유로 성공하지 못했습니다 : ' + status);
+        }
+    });
+}
+}
+
+// // 마커 생성함수
+// function createMarkers() {
+//     for (let i = 0; i < location.length; i++) {
+//         let mker = new google.maps.Marker({
+//             position: tot.location[i],
+//             map,
+//             animation: google.maps.Animation.DROP,
+//         })
+//
+//         markers.push(mker);
+//     }
+//     // console.log('markers')
+//     // console.log(markers);
+//     // Add a marker clusterer to manage the markers.
+//     // 클러스터링
+//     markerCluster = new MarkerClusterer(map, markers, {
+//         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+//         gridSize: 100
+//     });
+// }
+//
+// function refreshMap() {
+//     if (markerCluster instanceof MarkerClusterer) {
+//         // Clear all clusters and markers
+//         markerCluster.clearMarkers()
+//     }
+//     markers = [];
+//     createMarkers();
+// }
+
 
 // async function uploadImgPreview() {
 //     // 업로드 파일 읽기
@@ -146,6 +195,8 @@ function postArticle() {
             writer_give: writer,
             date_give: date,
             place_give: place,
+            lat_give: tot.location.lat,
+            lng_give: tot.location.lng,
             img_give: img_path,
             content_give: content
         }, // 데이터를 주는 방법
