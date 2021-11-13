@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Trip or Travel</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/exifreader@4.0.0/dist/exif-reader.min.js"></script>
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- static -->
@@ -57,6 +58,9 @@
         </div>
     </div>
     <!-- Google Map -->
+    <label for="geo-address">위치 검색</label>
+    <input id="geo-address" type="text">
+    <button id="geo-submit" type="button">검색</button>
     <div id="map"></div>
     <!-- Card box -->
     <div id="card-bundle" class="cards">

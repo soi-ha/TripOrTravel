@@ -9,10 +9,72 @@ let img_path;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
-        center: {lat: -34.397, lng: 150.644},
+        center: {lat: 37.5642135, lng: 127.0016985},
         zoom: 8,
     });
-}
+
+
+    let geocoder = new google.maps.Geocoder();
+
+    // submit 버튼 클릭 이벤트 실행
+    document.getElementById('geo-submit').addEventListener('click', function () {
+        console.log('submit 버튼 클릭 이벤트 실행');
+
+        // 여기서 실행
+        geocodeAddress(geocoder, map);
+    });
+        /**
+         * geocodeAddress
+         *
+         * 입력한 주소로 맵의 좌표를 바꾼다.
+         */
+        function geocodeAddress(geocoder, resultMap) {
+            console.log('geocodeAddress 함수 실행');
+
+            // 주소 설정
+            let address = document.getElementById('geo-address').value;
+
+            /**
+             * 입력받은 주소로 좌표에 맵 마커를 찍는다.
+             * 1번째 파라미터 : 주소 등 여러가지.
+             *      ㄴ 참고 : https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests
+             *
+             * 2번째 파라미터의 함수
+             *      ㄴ result : 결과값
+             *      ㄴ status : 상태. OK가 나오면 정상.
+             */
+            geocoder.geocode({'geo-address': address}, function (result, status) {
+                console.log(result);
+                console.log(status);
+
+                if (status === 'OK') {
+                    // 맵의 중심 좌표를 설정한다.
+                    resultMap.setCenter(result[0].geometry.location);
+                    // 맵의 확대 정도를 설정한다.
+                    resultMap.setZoom(18);
+                    // 맵 마커
+                    let marker = new google.maps.Marker({
+                        map: resultMap,
+                        position: result[0].geometry.location
+                    });
+
+                    // 위도
+                    console.log('위도(latitude) : ' + marker.position.lat());
+                    // 경도
+                    console.log('경도(longitude) : ' + marker.position.lng());
+                } else {
+                    alert('지오코드가 다음의 이유로 성공하지 못했습니다 : ' + status);
+                }
+            });
+        }
+    }
+
+// async function uploadImgPreview() {
+//     // 업로드 파일 읽기
+//     const fileInfo = document.getElementById("uploadFile").files[0];
+//     const tags = await ExifReader.load(fileInfo, {expanded: true});
+//     console.log(tags);
+// }
 
 function openClose() {
     // id 값 post-box의 display 값이 block 이면
