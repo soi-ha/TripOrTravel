@@ -83,7 +83,7 @@ button:focus {
   background-color: var(--box-color);
   display: flex;
   flex-direction: column;
-  height: 600px;
+  height: 700px;
   width: 510px;
   margin: auto;
   padding: 25px;
@@ -92,12 +92,25 @@ button:focus {
 }
 
 #post-writer {
-  width: 363px;
+  width: 200px;
   height: var(--input-height);
 }
 
 #post-trip-place {
-  width: 350px;
+  width: 250px;
+  height: var(--input-height);
+}
+
+.search-button {
+  padding: 10px;
+  font-size: var(--font-small);
+  background-color: var(--button-color);
+  border-radius: 10%;
+  font-weight: bold;
+}
+
+#post-trip-location {
+  width: 250px;
   height: var(--input-height);
 }
 

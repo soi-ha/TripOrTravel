@@ -17,74 +17,74 @@ function initMap() {
     });
 
     // 여기서 부터 수정- 마커 찍기!!!!!!!
-    for (let i = 0; i < tot.length; i++) {
-        let marker = new google.maps.Marker({
-            map: map,
-            label: location[i].place,
-            position: new google.maps.LatLng(tot.location.lat, tot.location.lng),
-        });
+    // for (let i = 0; i < tot.length; i++) {
+    //     let marker = new google.maps.Marker({
+    //         map: map,
+    //         label: location[i].place,
+    //         position: new google.maps.LatLng(tot.location.lat, tot.location.lng),
+    //     });
+    //
+    //     google.maps.event.addListener(marker, 'click', (function (marker, i) {
+    //         return function () {
+    //             infowindow.setContent('#post-trip-place');
+    //             infowindow.open(map, marker);
+    //         }
+    //     })(marker, i));
+    // }
 
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-            return function () {
-                infowindow.setContent('#post-trip-place');
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
-    }
-
-let geocoder = new google.maps.Geocoder();
+    let geocoder = new google.maps.Geocoder();
 
 // submit 버튼 클릭 이벤트 실행
-document.getElementById('geo-submit').addEventListener('click', function () {
+    document.getElementById('geo-submit').addEventListener('click', function () {
 
-    // 여기서 실행
-    geocodeAddress(geocoder, map);
-});
-
-/**
- * geocodeAddress
- *
- * 입력한 주소로 맵의 좌표를 바꾼다.
- */
-function geocodeAddress(geocoder, resultMap) {
-
-    // 주소 설정
-    let address = document.getElementById("post-trip-place").value;
+        // 여기서 실행
+        geocodeAddress(geocoder, map);
+    });
 
     /**
-     * 입력받은 주소로 좌표에 맵 마커를 찍는다.
-     * 1번째 파라미터 : 주소 등 여러가지.
-     *      ㄴ 참고 : https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests
+     * geocodeAddress
      *
-     * 2번째 파라미터의 함수
-     *      ㄴ result : 결과값
-     *      ㄴ status : 상태. OK가 나오면 정상.
+     * 입력한 주소로 맵의 좌표를 바꾼다.
      */
-    geocoder.geocode({'address': address}, function (result, status) {
+    function geocodeAddress(geocoder, resultMap) {
 
-        if (status === 'OK') {
-            // 맵의 중심 좌표를 설정한다.
-            resultMap.setCenter(result[0].geometry.location);
-            // 맵의 확대 정도를 설정한다.
-            resultMap.setZoom(18);
-            // 맵 마커
-            let marker = new google.maps.Marker({
-                map: resultMap,
-                position: result[0].geometry.location
-            });
+        // 주소 설정
+        let address = document.getElementById("post-trip-place").value;
 
-            tot.location = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()}
+        /**
+         * 입력받은 주소로 좌표에 맵 마커를 찍는다.
+         * 1번째 파라미터 : 주소 등 여러가지.
+         *      ㄴ 참고 : https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests
+         *
+         * 2번째 파라미터의 함수
+         *      ㄴ result : 결과값
+         *      ㄴ status : 상태. OK가 나오면 정상.
+         */
+        geocoder.geocode({'address': address}, function (result, status) {
 
-            $('#post-trip-location').val(tot.location.lat + '/' + tot.location.lng);
-            // // 위도
-            // latitude = marker.position.lat();
-            // // 경도
-            // longitude = marker.position.lng();
-        } else {
-            alert('지오코드가 다음의 이유로 성공하지 못했습니다 : ' + status);
-        }
-    });
-}
+            if (status === 'OK') {
+                // 맵의 중심 좌표를 설정한다.
+                resultMap.setCenter(result[0].geometry.location);
+                // 맵의 확대 정도를 설정한다.
+                resultMap.setZoom(18);
+                // 맵 마커
+                let marker = new google.maps.Marker({
+                    map: resultMap,
+                    position: result[0].geometry.location
+                });
+
+                tot.location = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()}
+
+                $('#post-trip-location').val(tot.location.lat + '/' + tot.location.lng);
+                // // 위도
+                // latitude = marker.position.lat();
+                // // 경도
+                // longitude = marker.position.lng();
+            } else {
+                alert('지오코드가 다음의 이유로 성공하지 못했습니다 : ' + status);
+            }
+        });
+    }
 }
 
 // // 마커 생성함수
@@ -125,6 +125,43 @@ function geocodeAddress(geocoder, resultMap) {
 //     console.log(tags);
 // }
 
+// function uploadImgPreview() {
+//
+//     // 업로드 파일 읽기
+//     const fileInfo = document.getElementById("uploadFile").files[0];
+//     const reader = new FileReader();
+//
+//     // readAsDataURL( )을 통해 파일을 읽어 들일때 onload가 실행
+//     reader.onload = function () {
+//
+//         EXIF.getData(fileInfo, () => {
+//
+//             const tags = EXIF.getAllTags(fileInfo);
+//
+//             // 객체 내용 확인하기
+//             console.dir(tags);
+//
+//             // 메타데이터 값 얻기
+//             console.log(tags.Artist);
+//             console.log(tags.Orientation);
+//
+//             // 모든 키와 해당 키의 값 얻기
+//             for (let key in tags) {
+//                 console.log(key);
+//                 console.log(tags[key]);
+//             }
+//         });
+//
+//         // 파일의 URL을 Base64 형태로 가져온다.
+//         document.getElementById("thumbnailImg").src = reader.result;
+//     };
+//
+//     if (fileInfo) {
+//
+//         // readAsDataURL( )을 통해 파일의 URL을 읽어온다.
+//         reader.readAsDataURL(fileInfo);
+//     }
+// 
 function openClose() {
     // id 값 post-box의 display 값이 block 이면
     if ($('#posting-box').css('display') === 'block') {
