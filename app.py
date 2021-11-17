@@ -6,7 +6,7 @@ from os.path import isfile, join
 
 app = Flask(__name__)
 
-client = MongoClient('localhost', 27017)  # mongoDB는 27017 포트로 돌아갑니다.
+client = MongoClient('mongodb://test:test@localhost', 27017)  # mongoDB는 27017 포트로 돌아갑니다.
 db = client.dbsparta  # 'dbsparta'라는 이름의 db를 만듭니다.
 
 
@@ -70,9 +70,9 @@ def post_article():
 
 # @app.route('/trip', methods=['GET'])
 # def read_articles():
-#     # mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기 (Read)
+# mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기 (Read)
 #     result = list(db.trip.find({}, {'_id': 0}))
-#     # articles라는 키 값으로 article 정보 보내주기
+# articles라는 키 값으로 article 정보 보내주기
 #     return jsonify({'result': 'success', 'articles': result})
 
 

@@ -161,7 +161,7 @@ function initMap() {
 //         // readAsDataURL( )을 통해 파일의 URL을 읽어온다.
 //         reader.readAsDataURL(fileInfo);
 //     }
-// 
+//
 function openClose() {
     // id 값 post-box의 display 값이 block 이면
     if ($('#posting-box').css('display') === 'block') {
