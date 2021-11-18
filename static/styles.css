@@ -12,6 +12,8 @@
   --font-medium: 18px;
   --font-small: 15px;
 
+  --font-media-title: 70px;
+
   /* size */
   --padding: 15px;
   --input-height: 35px;
@@ -231,3 +233,12 @@ input {
   /* 움직이고 변하는 것은 transform 사용. position,rotation, scale 을 바꿈.
   rotation을 180도 바꿈 
 } */
+@media screen and (max-width: 768px) {
+  .header .nav .nav-title {
+    font-size: var(--font-media-title);
+  }
+  #map {
+    width: auto;
+    margin: 50px;
+  }
+}

@@ -258,6 +258,14 @@ function showArticles() {
             const articles = response["articles"];
             console.log(articles);
             for (let i = 0; i < articles.length; i++) {
+                // 마커 지도에 저장하기
+                let marker = new google.maps.Marker({
+                    map: map,
+                    position: {
+                        lat: Number(articles[i]['lat']),
+                        lng: Number(articles[i]['lng']),
+                    }
+                });
                 makeCard(articles[i]["writer"], articles[i]["img"], articles[i]["date"], articles[i]["place"], articles[i]["content"]);
             }
         }
